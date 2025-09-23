@@ -1,8 +1,15 @@
 'use client';
 
 import { Box, Typography, Container } from '@mui/material';
+import { useState, useEffect } from 'react';
 
 export default function Footer() {
+  const [currentYear, setCurrentYear] = useState('');
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear().toString());
+  }, []);
+
   return (
     <Box
       component="footer"
@@ -18,7 +25,7 @@ export default function Footer() {
     >
       <Container maxWidth="lg">
         <Typography variant="body2" color="text.secondary" align="center">
-          © {new Date().getFullYear()} My Blog. All rights reserved.
+          © {currentYear || '2024'} My Blog. All rights reserved.
         </Typography>
       </Container>
     </Box>

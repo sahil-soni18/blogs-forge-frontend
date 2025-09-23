@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Card,
@@ -11,15 +11,10 @@ import {
   IconButton,
   Avatar,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Grid,
 } from "@mui/material";
-import {
-  CalendarToday,
-  Person,
-  BookmarkBorder,
-  Bookmark,
-  Share
-} from "@mui/icons-material";
+import { CalendarToday, Person, Share } from "@mui/icons-material";
 import { useState } from "react";
 
 interface BlogCardProps {
@@ -41,36 +36,36 @@ const BlogCard: React.FC<BlogCardProps> = ({
   author,
   authorAvatar,
   category,
-  minRead = 5
+  minRead = 5,
 }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const toggleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
+  const toggleHover = () => {
+    setIsHovered(!isHovered);
   };
 
-  // Function to truncate description to a certain number of characters
   const truncateDescription = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
-    return text.substr(0, maxLength) + '...';
+    return text.substr(0, maxLength) + "...";
   };
 
   return (
     <Card
       sx={{
-        maxWidth: 800,
-        width: "100%",
+        maxWidth: 400,
         margin: "0 auto",
         borderRadius: 2,
         boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         transition: "transform 0.3s, box-shadow 0.3s",
         "&:hover": {
           transform: "translateY(-4px)",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.15)"
-        }
+          boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+        },
+        position: "relative",
       }}
+      onMouseEnter={toggleHover}
+      onMouseLeave={toggleHover}
     >
       {/* Blog Image */}
       <CardMedia
@@ -80,6 +75,23 @@ const BlogCard: React.FC<BlogCardProps> = ({
         alt={title}
         sx={{ objectFit: "cover" }}
       />
+
+      {/* Hover Share Button */}
+      {isHovered && (
+        <IconButton
+          size="small"
+          sx={{
+            position: "absolute",
+            top: 8,
+            right: 8,
+            color: "text.secondary",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            "&:hover": { backgroundColor: "rgba(255, 255, 255, 1)" },
+          }}
+        >
+          <Share />
+        </IconButton>
+      )}
 
       {/* Category Chip */}
       {category && (
@@ -91,7 +103,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
               backgroundColor: theme.palette.primary.main,
               color: "white",
               fontWeight: 600,
-              fontSize: "0.75rem"
+              fontSize: "0.75rem",
             }}
           />
         </Box>
@@ -107,7 +119,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
             fontWeight: 700,
             lineHeight: 1.3,
             color: theme.palette.text.primary,
-            mb: 2
+            mb: 2,
           }}
         >
           {title}
@@ -123,79 +135,59 @@ const BlogCard: React.FC<BlogCardProps> = ({
             display: "-webkit-box",
             WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
           {truncateDescription(description, 150)}
         </Typography>
 
         {/* Divider */}
-        <Box sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 2 }} />
+        <Box
+          sx={{ borderBottom: "1px solid", borderColor: "divider", mb: 2 }}
+        />
       </CardContent>
 
-      <CardActions sx={{ p: 3, pt: 0, justifyContent: "space-between" }}>
-        {/* Left side: Date and Read Time */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <CalendarToday
-            sx={{ fontSize: "1rem", mr: 0.5, color: "text.secondary" }}
-          />
-          <Typography variant="body2" color="text.secondary" sx={{ mr: 2 }}>
-            {date}
-          </Typography>
-          
-          <Typography variant="body2" color="text.secondary">
-            • {minRead} min read
-          </Typography>
-        </Box>
+      <CardActions sx={{ p: 3, pt: 0 }}>
+        <Grid container alignItems="center">
+          {/* Left side: Date + Read time */}
 
-        {/* Right side: Author and Action Buttons */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          {/* Author Info */}
-          <Box sx={{ display: "flex", alignItems: "center", mr: 2 }}>
-            {authorAvatar ? (
-              <Avatar
-                src={authorAvatar}
-                sx={{ width: 24, height: 24, mr: 1 }}
+          <Grid size={{ xs: 12, sm: 6 }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: "100%" }}>
+              <CalendarToday
+                sx={{ fontSize: "1rem", color: "text.secondary" }}
               />
-            ) : (
-              <Person sx={{ fontSize: "1rem", mr: 0.5, color: "text.secondary" }} />
-            )}
-            <Typography variant="body2" color="text.secondary">
-              {author}
-            </Typography>
-          </Box>
+              <Typography variant="body2" color="text.secondary">
+                {date}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                • {minRead} min read
+              </Typography>
+            </Box>
+          </Grid>
 
-          {/* Action Buttons */}
-          <Box>
-            <IconButton
-              size="small"
-              onClick={toggleBookmark}
-              sx={{ color: isBookmarked ? theme.palette.primary.main : "text.secondary" }}
+          <Grid size={{ xs: 12, sm: 6 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: { xs: "flex-start", sm: "flex-end" },
+                gap: 1,
+              }}
             >
-              {isBookmarked ? <Bookmark /> : <BookmarkBorder />}
-            </IconButton>
-            <IconButton size="small" sx={{ color: "text.secondary" }}>
-              <Share />
-            </IconButton>
-          </Box>
-        </Box>
+              {authorAvatar ? (
+                <Avatar src={authorAvatar} sx={{ width: 24, height: 24 }} />
+              ) : (
+                <Person sx={{ fontSize: "1rem", color: "text.secondary" }} />
+              )}
+              <Typography variant="body2" color="text.secondary">
+                {author}
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );
 };
 
 export default BlogCard;
-
-// Example usage:
-/*
-<BlogCard
-  image="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-  title="The Future of Web Development in 2023"
-  description="Explore the latest trends and technologies that are shaping the future of web development. From AI-powered interfaces to serverless architectures, discover what's next in the world of coding."
-  date="June 15, 2023"
-  author="Sarah Johnson"
-  authorAvatar="https://randomuser.me/api/portraits/women/43.jpg"
-  category="Technology"
-  minRead={7}
-/>
-*/
