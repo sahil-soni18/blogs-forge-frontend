@@ -16,30 +16,23 @@ import {
 } from "@mui/material";
 import { CalendarToday, Person, Share } from "@mui/icons-material";
 import { useState } from "react";
+import { IBlog } from "../../types";
+import { useRouter } from "next/navigation";
 
-interface BlogCardProps {
-  image: string;
-  title: string;
-  description: string;
-  date: string;
-  author: string;
-  authorAvatar?: string;
-  category?: string;
-  minRead?: number;
-}
-
-const BlogCard: React.FC<BlogCardProps> = ({
+const BlogCard: React.FC<IBlog> = ({
   image,
   title,
   description,
-  date,
+  date_of_publish,
+  slug,
   author,
-  authorAvatar,
-  category,
-  minRead = 5,
+  author_avatar,
+  technologies,
+  read_time = 5,
 }) => {
   const theme = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
 
   const toggleHover = () => {
     setIsHovered(!isHovered);
@@ -66,6 +59,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
       }}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
+      onClick={() => router.push(`/blogs/${slug}`)}
     >
       {/* Blog Image */}
       <CardMedia
@@ -93,11 +87,11 @@ const BlogCard: React.FC<BlogCardProps> = ({
         </IconButton>
       )}
 
-      {/* Category Chip */}
-      {category && (
+      {/* technologies Chip */}
+      {technologies && (
         <Box sx={{ position: "relative", mt: -2, ml: 2 }}>
           <Chip
-            label={category}
+            label={technologies}
             size="small"
             sx={{
               backgroundColor: theme.palette.primary.main,
@@ -149,7 +143,6 @@ const BlogCard: React.FC<BlogCardProps> = ({
 
       <CardActions sx={{ p: 3, pt: 0 }}>
         <Grid container alignItems="center">
-          {/* Left side: Date + Read time */}
 
           <Grid size={{ xs: 12, sm: 6 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: "100%" }}>
@@ -157,10 +150,10 @@ const BlogCard: React.FC<BlogCardProps> = ({
                 sx={{ fontSize: "1rem", color: "text.secondary" }}
               />
               <Typography variant="body2" color="text.secondary">
-                {date}
+                {date_of_publish}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                • {minRead} min read
+                • {read_time} min read
               </Typography>
             </Box>
           </Grid>
@@ -174,8 +167,8 @@ const BlogCard: React.FC<BlogCardProps> = ({
                 gap: 1,
               }}
             >
-              {authorAvatar ? (
-                <Avatar src={authorAvatar} sx={{ width: 24, height: 24 }} />
+              {author_avatar ? (
+                <Avatar src={author_avatar} sx={{ width: 24, height: 24 }} />
               ) : (
                 <Person sx={{ fontSize: "1rem", color: "text.secondary" }} />
               )}

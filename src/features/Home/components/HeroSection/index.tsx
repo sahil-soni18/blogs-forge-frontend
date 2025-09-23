@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import React, { FC } from "react";
 import { keyframes } from "@emotion/react";
+import { useRouter } from "next/navigation";
 
 const float = keyframes`
   0% { transform: translateY(0px); }
@@ -26,6 +27,7 @@ const gradientShift = keyframes`
 
 const Hero: FC<{}> = () => {
   const theme = useTheme();
+  const router = useRouter();
 
   return (
     <Box
@@ -105,6 +107,7 @@ const Hero: FC<{}> = () => {
             <Button
               variant="contained"
               size="large"
+              onClick={() => router.push(`/blogs`)}
               sx={{
                 px: 4,
                 py: 1.5,
