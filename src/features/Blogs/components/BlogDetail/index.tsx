@@ -156,7 +156,7 @@ const BlogDetail = ({ slug }: BlogDetailProps) => {
           }}>
             <Box
               component="img"
-              src={blog.image}
+              src={blog.imageUrl}
               alt={blog.title}
               sx={{
                 width: '100%',

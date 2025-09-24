@@ -20,7 +20,7 @@ import { IBlog } from "../../types";
 import { useRouter } from "next/navigation";
 
 const BlogCard: React.FC<IBlog> = ({
-  image,
+  imageUrl,
   title,
   description,
   date_of_publish,
@@ -65,7 +65,7 @@ const BlogCard: React.FC<IBlog> = ({
       <CardMedia
         component="img"
         height="240"
-        image={image}
+        image={imageUrl}
         alt={title}
         sx={{ objectFit: "cover" }}
       />
@@ -173,7 +173,7 @@ const BlogCard: React.FC<IBlog> = ({
                 <Person sx={{ fontSize: "1rem", color: "text.secondary" }} />
               )}
               <Typography variant="body2" color="text.secondary">
-                {author}
+                {author.name}
               </Typography>
             </Box>
           </Grid>

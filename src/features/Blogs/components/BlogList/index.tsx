@@ -13,35 +13,15 @@ import {
 import { IBlog } from "../../types";
 import BlogCard from "../BlogCard";
 import { dummyBlogs } from "../../dummyData";
+import { useBlogs } from "../../hooks/useBlogs";
 
 const BlogList = () => {
-  const [data, setData] = useState<IBlog[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
-  // Mock data fetch function - using dummy data
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Use your dummy blogs data
-      setData(dummyBlogs);
-      
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data, isLoading, error, refetch } = useBlogs();
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+ 
 
-  if (loading) {
+  if (isLoading) {
     return (
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box
@@ -62,18 +42,18 @@ const BlogList = () => {
         <Alert
           severity="error"
           action={
-            <Button color="inherit" size="small" onClick={fetchBlogs}>
+            <Button color="inherit" size="small" onClick={() => refetch()}>
               Retry
             </Button>
           }
         >
-          {error}
+          {(error as Error).message || "Something went wrong"}
         </Alert>
       </Container>
     );
   }
 
-  if (data.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box textAlign="center" py={8}>
@@ -100,11 +80,11 @@ const BlogList = () => {
       </Typography>
 
       <Grid container spacing={3}>
-        {data.map((blog: IBlog, index: number) => (
-          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={blog.id || index}> {/* Fixed: changed 'size' to 'item' */}
+        {data?.map((blog: IBlog, index: number) => (
+          <Grid size={{ xs: 12, sm: 6, md: 4 }} key={blog.id || index}> 
             <BlogCard
               id={blog.id}
-              image={blog.image || ""}
+              imageUrl={blog.imageUrl || ""}
               slug={blog.slug}
               title={blog.title}
               content={blog.content}

@@ -234,7 +234,7 @@ Next.js 14 represents a significant step forward in React framework development.
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
     technologies: ["Next.js", "React", "TypeScript", "Web Development"],
     read_time: 8,
-    image:
+    imageUrl:
       "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
   },
   {
@@ -291,7 +291,7 @@ function UserProfile({ userId }) {
       "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
     technologies: ["React", "JavaScript", "Hooks"],
     read_time: 6,
-    image:
+    imageUrl:
       "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=800&h=400&fit=crop",
   },
   {
@@ -339,7 +339,7 @@ const UserCard: React.FC<UserCardProps> = ({ user, onEdit, isAdmin = false }) =>
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     technologies: ["TypeScript", "React", "Development"],
     read_time: 10,
-    image:
+    imageUrl:
       "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&h=400&fit=crop",
   },
 ];
