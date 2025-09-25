@@ -3,6 +3,7 @@
 import BlogCard from "@/features/Blogs/components/BlogCard";
 import { Stack, Typography, Box } from "@mui/material";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface FeaturedBlogsProps {
   // Add any props you might need in the future
 }
