@@ -12,14 +12,13 @@ import {
 } from "@mui/material";
 import { IBlog } from "../../types";
 import BlogCard from "../BlogCard";
-import { dummyBlogs } from "../../dummyData";
-import { useBlogs } from "../../hooks/useBlogs";
 
-const BlogList = () => {
+type BlogListProps = {
+  data: IBlog[],
+  isLoading: boolean,
+}
 
-  const { data, isLoading, error, refetch } = useBlogs();
-
- 
+const BlogList = ( { data, isLoading }: BlogListProps) => {
 
   if (isLoading) {
     return (
@@ -32,23 +31,6 @@ const BlogList = () => {
         >
           <CircularProgress />
         </Box>
-      </Container>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Alert
-          severity="error"
-          action={
-            <Button color="inherit" size="small" onClick={() => refetch()}>
-              Retry
-            </Button>
-          }
-        >
-          {(error as Error).message || "Something went wrong"}
-        </Alert>
       </Container>
     );
   }
@@ -89,7 +71,7 @@ const BlogList = () => {
               title={blog.title}
               content={blog.content}
               description={blog.description}
-              date_of_publish={blog.date_of_publish}
+              created_at={blog.created_at}
               author={blog.author}
               author_avatar={blog.author_avatar}
               technologies={blog.technologies}

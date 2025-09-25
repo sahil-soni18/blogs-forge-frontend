@@ -30,8 +30,8 @@ const FeaturedBlogs: React.FC<{}> = () => {
           title="The Future of Web Development in 2023"
           slug="the-future-of-web-development-in-2023"
           description="Explore the latest trends and technologies that are shaping the future of web development. From AI-powered interfaces to serverless architectures, discover what's next in the world of coding."
-          date_of_publish="June 15, 2023"
-          author="Sarah Johnson"
+          created_at="June 15, 2023"
+          author={ {id: 1, name: "Sahil"}}
           content="Some Content"
           author_avatar="https://randomuser.me/api/portraits/women/43.jpg"
           technologies={["Technology"]}

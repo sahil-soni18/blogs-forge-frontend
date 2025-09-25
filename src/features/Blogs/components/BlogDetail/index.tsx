@@ -11,6 +11,7 @@ import {
   Stack,
   Divider,
   Paper,
+  useTheme,
 } from "@mui/material";
 import { CalendarToday, Person, Schedule } from "@mui/icons-material";
 import { IBlog } from "../../types";
@@ -18,44 +19,15 @@ import { dummyBlogs } from "../../dummyData";
 import MDPreview from "@/components/MDPreview/MDPreview";
 
 interface BlogDetailProps {
+  blog: IBlog | null;
   slug: string;
 }
 
-const BlogDetail = ({ slug }: BlogDetailProps) => {
-  const [blog, setBlog] = useState<IBlog | null>(null);
-  const [loading, setLoading] = useState(true);
+const BlogDetail = ({ blog, slug }: BlogDetailProps) => {
 
-  useEffect(() => {
-    // Simulate API call to fetch blog by slug
-    const fetchBlog = async () => {
-      setLoading(true);
-      try {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        const foundBlog = dummyBlogs.find(blog => blog.slug === slug);
-        setBlog(foundBlog || null);
-      } catch (error) {
-        console.error("Error fetching blog:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const theme = useTheme();
 
-    if (slug) {
-      fetchBlog();
-    }
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Typography>Loading...</Typography>
-      </Container>
-    );
-  }
-
-  if (!blog) {
+  if (!blog || blog == null) {
     return (
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Typography variant="h4" color="error">
@@ -73,7 +45,9 @@ const BlogDetail = ({ slug }: BlogDetailProps) => {
         sx={{ 
           p: 4, 
           mb: 4,
-          background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+          background: theme.palette.mode === 'dark' 
+            ? 'linear-gradient(135deg, #2c3e50 0%, #3498db 100%)' 
+            : 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
           borderRadius: 2
         }}
       >
@@ -86,7 +60,9 @@ const BlogDetail = ({ slug }: BlogDetailProps) => {
               gutterBottom 
               sx={{ 
                 fontWeight: 'bold',
-                background: 'linear-gradient(45deg, #1976d2, #00bcd4)',
+                background: theme.palette.mode === 'dark' 
+                  ? 'linear-gradient(45deg, #90caf9, #81d4fa)' 
+                  : 'linear-gradient(45deg, #1976d2, #00bcd4)',
                 backgroundClip: 'text',
                 textFillColor: 'transparent',
                 WebkitBackgroundClip: 'text',
@@ -110,14 +86,14 @@ const BlogDetail = ({ slug }: BlogDetailProps) => {
               <Stack direction="row" spacing={1} alignItems="center">
                 <Person color="primary" sx={{ fontSize: 20 }} />
                 <Typography variant="body2" color="text.secondary">
-                  {blog.author}
+                  {blog.author.name}
                 </Typography>
               </Stack>
               
               <Stack direction="row" spacing={1} alignItems="center">
                 <CalendarToday color="primary" sx={{ fontSize: 20 }} />
                 <Typography variant="body2" color="text.secondary">
-                  {new Date(blog.date_of_publish).toLocaleDateString('en-US', {
+                  {new Date(blog.created_at).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
@@ -183,15 +159,15 @@ const BlogDetail = ({ slug }: BlogDetailProps) => {
         <Stack direction="row" spacing={2} alignItems="center">
           <Avatar 
             src={blog.author_avatar} 
-            alt={blog.author}
+            alt={blog.author.name}
             sx={{ width: 60, height: 60 }}
           />
           <Box>
             <Typography variant="h6" gutterBottom>
-              Written by {blog.author}
+              Written by {blog.author.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Published on {new Date(blog.date_of_publish).toLocaleDateString()}
+              Published on {new Date(blog.created_at).toLocaleDateString()}
             </Typography>
           </Box>
         </Stack>

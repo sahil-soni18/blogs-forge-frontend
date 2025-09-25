@@ -12,7 +12,7 @@ export interface IBlog {
     slug: string;
     content: string;
     imageUrl?: string;
-    date_of_publish: string;
+    created_at: string;
     author: IAuthor;
     author_avatar: string;
     technologies: string[];

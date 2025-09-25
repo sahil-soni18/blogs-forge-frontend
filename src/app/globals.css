@@ -12,8 +12,14 @@ body {
   overflow-x: hidden;
 }
 
+/* globals.css */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-geist-sans);
+}
+
+/* Use geist-mono for code, pre, etc. */
+code, pre {
+  font-family: var(--font-geist-mono);
 }
 
 a {

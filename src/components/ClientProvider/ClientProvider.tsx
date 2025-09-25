@@ -6,8 +6,16 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ThemeRegistry from "../theme/ThemeRegistry";
 import Layout from "../layout/Layout";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Disable automatic refetching during SSR
+      staleTime: 60 * 1000, // 1 minute
+    },
+  },
+});
+
 export default function ClientProviders({ children }: { children: ReactNode }) {
-  const queryClient = new QueryClient();
   return (
     <ThemeProvider>
       <ThemeRegistry>

@@ -23,7 +23,7 @@ const BlogCard: React.FC<IBlog> = ({
   imageUrl,
   title,
   description,
-  date_of_publish,
+  created_at,
   slug,
   author,
   author_avatar,
@@ -41,6 +41,21 @@ const BlogCard: React.FC<IBlog> = ({
   const truncateDescription = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
     return text.substr(0, maxLength) + "...";
+  };
+
+  const formatDate = (dateString: string): string => {
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return "Invalid date";
+
+      return new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }).format(date);
+    } catch (error) {
+      return "Invalid date";
+    }
   };
 
   return (
@@ -88,7 +103,7 @@ const BlogCard: React.FC<IBlog> = ({
       )}
 
       {/* technologies Chip */}
-      {technologies && (
+      {/* {technologies && (
         <Box sx={{ position: "relative", mt: -2, ml: 2 }}>
           <Chip
             label={technologies}
@@ -101,7 +116,7 @@ const BlogCard: React.FC<IBlog> = ({
             }}
           />
         </Box>
-      )}
+      )} */}
 
       <CardContent sx={{ p: 3 }}>
         {/* Blog Title */}
@@ -142,42 +157,35 @@ const BlogCard: React.FC<IBlog> = ({
       </CardContent>
 
       <CardActions sx={{ p: 3, pt: 0 }}>
-        <Grid container alignItems="center">
-
-          <Grid size={{ xs: 12, sm: 6 }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1, width: "100%" }}>
-              <CalendarToday
-                sx={{ fontSize: "1rem", color: "text.secondary" }}
-              />
-              <Typography variant="body2" color="text.secondary">
-                {date_of_publish}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                • {read_time} min read
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 6 }}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: { xs: "flex-start", sm: "flex-end" },
-                gap: 1,
-              }}
-            >
-              {author_avatar ? (
-                <Avatar src={author_avatar} sx={{ width: 24, height: 24 }} />
-              ) : (
-                <Person sx={{ fontSize: "1rem", color: "text.secondary" }} />
-              )}
-              <Typography variant="body2" color="text.secondary">
-                {author.name}
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 2,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <CalendarToday sx={{ fontSize: "1rem", color: "text.secondary" }} />
+            <Typography variant="body2" color="text.secondary">
+              {formatDate(created_at)}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              • {read_time} min read
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            {author_avatar ? (
+              <Avatar src={author_avatar} sx={{ width: 24, height: 24 }} />
+            ) : (
+              <Person sx={{ fontSize: "1rem", color: "text.secondary" }} />
+            )}
+            <Typography variant="body2" color="text.secondary">
+              {author.name}
+            </Typography>
+          </Box>
+        </Box>
       </CardActions>
     </Card>
   );
