@@ -11,7 +11,7 @@ interface BlogPageProps {
 async function getBlogBySlug(slug: string): Promise<IBlog | null> {
   try {
     console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}/blog/${slug}`)
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/blog/${slug}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}blog/${slug}`, {
       cache: 'force-cache',
       next: {
         revalidate: 3600,

@@ -71,6 +71,7 @@ const BlogCard: React.FC<IBlog> = ({
           boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
         },
         position: "relative",
+        cursor: 'pointer'
       }}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}

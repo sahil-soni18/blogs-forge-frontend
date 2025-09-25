@@ -3,7 +3,11 @@
 import BlogCard from "@/features/Blogs/components/BlogCard";
 import { Stack, Typography, Box } from "@mui/material";
 
-const FeaturedBlogs: React.FC<{}> = () => {
+interface FeaturedBlogsProps {
+  // Add any props you might need in the future
+}
+
+const FeaturedBlogs: React.FC<FeaturedBlogsProps> = () => {
   return (
     <Box sx={{ py: 6, px: { xs: 2, md: 4 } }}>
       <Typography 
