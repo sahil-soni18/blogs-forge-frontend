@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import { CalendarToday, Person, Schedule } from "@mui/icons-material";
 import { IBlog } from "../../types";
-import { dummyBlogs } from "../../dummyData";
 import MDPreview from "@/components/MDPreview/MDPreview";
 
 interface BlogDetailProps {
