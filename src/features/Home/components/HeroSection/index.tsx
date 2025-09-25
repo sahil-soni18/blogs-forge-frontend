@@ -25,7 +25,11 @@ const gradientShift = keyframes`
   100% { background-position: 0% 50%; }
 `;
 
-const Hero: FC<{}> = () => {
+interface HeroSectionProps {
+
+}
+
+const Hero: FC<HeroSectionProps> = () => {
   const theme = useTheme();
   const router = useRouter();
 
