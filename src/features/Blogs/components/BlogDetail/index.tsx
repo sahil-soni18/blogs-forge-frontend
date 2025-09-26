@@ -37,7 +37,7 @@ const BlogDetail = ({ blog, slug }: BlogDetailProps) => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="lg" sx={{ py: 4, mt: 2.5 }}>
       {/* Header Section */}
       <Paper 
         elevation={0} 
