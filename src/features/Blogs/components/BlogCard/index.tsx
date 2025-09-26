@@ -63,6 +63,7 @@ const BlogCard: React.FC<IBlog> = ({
       sx={{
         maxWidth: 400,
         margin: "0 auto",
+        height: 600,
         borderRadius: 2,
         boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
         transition: "transform 0.3s, box-shadow 0.3s",
