@@ -1,10 +1,11 @@
 "use client";
 
-import { Formik, Form, FormikValues } from "formik";
+import { Formik, Form, FormikValues,  } from "formik";
+import { AnyObjectSchema } from "yup";
 
 interface Props<T extends FormikValues> {
   initialValues: T;
-  validationSchema: any;
+  validationSchema: AnyObjectSchema;
   onSubmit: (values: T) => Promise<void> | void;
   children: React.ReactNode;
 }
