@@ -92,7 +92,7 @@ const Hero = () => {
               mb: 2,
             }}
           >
-            Code. Learn. Share.
+            Code. Cosmos. Share.
           </Typography>
 
           <Typography
@@ -100,7 +100,7 @@ const Hero = () => {
             color="text.secondary"
             maxWidth="600px"
           >
-            Tech blogs that spark ideas, deepen knowledge, and connect developers worldwide.
+            Tech & Astronomy blogs that spark ideas, deepen knowledge, and connect curious minds worldwide.
           </Typography>
 
           <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", justifyContent: "center" }}>
