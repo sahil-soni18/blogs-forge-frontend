@@ -158,7 +158,7 @@ const BlogList = ({ data, isLoading }: BlogListProps) => {
         variant="h4"
         component="h1"
         gutterBottom
-        sx={{ fontWeight: "bold", mb: 4, mt: 2, color: "#fff" }} // Match dark theme
+        sx={{ fontWeight: "bold", mb: 4, mt: 2,  }} // Match dark theme
       >
         Blogs
       </Typography>
@@ -170,22 +170,12 @@ const BlogList = ({ data, isLoading }: BlogListProps) => {
         aria-label="blog category tabs"
         sx={{
           mb: 4,
-          "& .MuiTabs-indicator": {
-            backgroundColor: "#fff", // White underline for active tab
-          },
-          "& .MuiTab-root": {
-            color: "#ccc", // Inactive tab color
-            "&.Mui-selected": {
-              color: "#fff", // Active tab color
-            },
-          },
         }}
       >
         <Tab label="Tech" />
         <Tab label="Astronomy" />
       </Tabs>
 
-      {/* Tab Content */}
       {tabValue === 0 && (
         <Grid container spacing={3}>
           {techBlogs.length > 0 ? (
