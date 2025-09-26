@@ -24,6 +24,7 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children, title, subtitle }) => {
           0.1
         )})`,
         px: 2,
+        mt: 2
       }}
     >
       <Container maxWidth="lg">
