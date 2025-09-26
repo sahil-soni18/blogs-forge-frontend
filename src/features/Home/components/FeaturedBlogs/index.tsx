@@ -40,6 +40,7 @@ const FeaturedBlogs: React.FC<FeaturedBlogsProps> = ({ featuredBlogs }) => {
               slug={blog.slug}
               title={blog.title}
               content={blog.content}
+              category={blog.category}
               description={blog.description}
               created_at={blog.created_at}
               author={blog.author}
