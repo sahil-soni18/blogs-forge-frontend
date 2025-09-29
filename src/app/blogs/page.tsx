@@ -3,7 +3,6 @@ import { IBlog } from "@/features/Blogs/types";
 
 async function getBlogs(): Promise<IBlog[]> {
 
-  console.log(`${process.env.NEXT_PUBLIC_API_BASE_URL}blog`)
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}blog`, {
       cache: 'force-cache',
